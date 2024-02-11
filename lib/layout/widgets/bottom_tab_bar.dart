@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/elusive_icons.dart';
 import 'package:fluttericon/entypo_icons.dart';
-import 'package:fluttericon/linecons_icons.dart';
-import 'package:fluttericon/mfg_labs_icons.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});

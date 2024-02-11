@@ -86,12 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               curve: Curves.easeOutCubic,
                               delay: Duration(milliseconds: 75 * index),
                               child: ProductWidget(
-                                id: state.products[index].id!,
-                                title: state.products[index].title!,
-                                price: state.products[index].price!,
-                                description: state.products[index].description!,
-                                category: state.products[index].category!,
-                                image: state.products[index].image!,
+                                product: state.products[index],
                               ),
                             ),
                           ),

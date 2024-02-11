@@ -20,7 +20,8 @@ Map<String, dynamic> themes = {
         fontWeight: FontWeight.bold,
         fontSize: 30,
       ),
-      bodyMedium: GoogleFonts.exo2().copyWith(color: _primaryColor),
+      bodyMedium:
+          GoogleFonts.exo2().copyWith(color: _primaryColor, fontSize: 18),
       bodySmall: GoogleFonts.exo2().copyWith(color: _primaryColor),
     ),
     appBarTheme: AppBarTheme(

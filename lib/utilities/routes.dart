@@ -15,8 +15,7 @@ class RouteGenerator {
             settings.arguments! as Map<String, dynamic>;
         return SizeTransitionAnimation(
           page: ProductDetailsScreen(
-            id: routeData['id'],
-            image: routeData['image'],
+            product: routeData['product'],
           ),
         );
       default:

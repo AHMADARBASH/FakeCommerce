@@ -5,7 +5,7 @@ class SizeTransitionAnimation extends PageRouteBuilder {
   SizeTransitionAnimation({required this.page})
       : super(
           pageBuilder: (context, animation, anotherAnimation) => page,
-          transitionDuration: Duration(milliseconds: 800),
+          transitionDuration: Duration(milliseconds: 1000),
           reverseTransitionDuration: Duration(milliseconds: 300),
           transitionsBuilder: (context, animation, anotherAnimation, child) {
             animation = CurvedAnimation(
