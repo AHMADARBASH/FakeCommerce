@@ -1,6 +1,7 @@
 import 'package:fakecommerce/bloc/categories/categories_cubit.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_cubit.dart';
 import 'package:fakecommerce/bloc/products/products_cubit.dart';
+import 'package:fakecommerce/bloc/topProducts/topProducts_cubit.dart';
 import 'package:fakecommerce/layout/screens/shared/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,9 @@ class FakeCommerce extends StatelessWidget {
           ),
           BlocProvider<ProductsCubit>(
             create: (_) => ProductsCubit(),
+          ),
+          BlocProvider<TopProductsCubit>(
+            create: (_) => TopProductsCubit(),
           ),
           BlocProvider<CategoriesCubit>(
             create: (_) => CategoriesCubit(),

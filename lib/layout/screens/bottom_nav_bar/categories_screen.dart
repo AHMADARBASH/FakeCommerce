@@ -24,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void initState() {
     final productsCubit = BlocProvider.of<ProductsCubit>(context);
-    productsCubit.getProductsIncategory(category: categories[_currentIndex]);
+    productsCubit.getProductsInCategory(category: categories[_currentIndex]);
     super.initState();
   }
 
@@ -45,26 +45,31 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
             SizedBox(
               height: 60,
-              child: StatefulBuilder(
-                builder: (context, newSetState) => ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<ProductsCubit>(context)
-                          .getProductsIncategory(
-                        category: categories[index],
-                      );
-                      newSetState(
-                        () {
-                          _currentIndex = index;
-                        },
-                      );
-                    },
-                    child: CategoryWidget(
-                        globalIndex: _currentIndex,
-                        index: index,
-                        title: categories[index]),
+              child: BlocBuilder<ProductsCubit, ProductsState>(
+                builder: (context, state) => StatefulBuilder(
+                  builder: (context, newSetState) => ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        if (state is ProductsLoadingState) {
+                          return;
+                        }
+                        BlocProvider.of<ProductsCubit>(context)
+                            .getProductsInCategory(
+                          category: categories[index],
+                        );
+                        newSetState(
+                          () {
+                            _currentIndex = index;
+                          },
+                        );
+                      },
+                      child: CategoryWidget(
+                          globalIndex: _currentIndex,
+                          index: index,
+                          title: categories[index]),
+                    ),
                   ),
                 ),
               ),

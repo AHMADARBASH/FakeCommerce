@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:fakecommerce/bloc/products/products_cubit.dart';
 import 'package:fakecommerce/bloc/products/products_state.dart';
+import 'package:fakecommerce/bloc/topProducts/topProducts_cubit.dart';
+import 'package:fakecommerce/bloc/topProducts/topProducts_state.dart';
 import 'package:fakecommerce/layout/widgets/product.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    BlocProvider.of<ProductsCubit>(context).getTopProducts();
+    final topProductsCubit = BlocProvider.of<TopProductsCubit>(context);
+    if (!topProductsCubit.isInit) {
+      BlocProvider.of<TopProductsCubit>(context).getTopProducts();
+    }
 
     super.initState();
   }
@@ -60,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: context.height * 0.01,
             ),
-            BlocBuilder<ProductsCubit, ProductsState>(
-              builder: (context, state) => state is ProductsLoadingState
+            BlocBuilder<TopProductsCubit, TopProductsState>(
+              builder: (context, state) => state is TopProductsLoadingState
                   ? const Column(
                       children: [
                         SizedBox(
@@ -72,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     )
-                  : state is ProductsErrorState
+                  : state is TopProductsErrorState
                       ? Text(state.errorMessage)
                       : Expanded(
                           child: MasonryGridView.builder(
