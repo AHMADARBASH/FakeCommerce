@@ -34,8 +34,10 @@ class MainScreen extends StatelessWidget {
               context.read<BottomNavBarCubit>().changeNavBarIndex(0);
               return false;
             } else if (isExitWarning) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Press back again to exit')));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Press back again to exit'),
+                behavior: SnackBarBehavior.floating,
+              ));
               return false;
             } else {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
