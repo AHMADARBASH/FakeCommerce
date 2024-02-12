@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:fakecommerce/bloc/categories/categories_state.dart';
-import 'package:fakecommerce/data/repositories/api.dart';
 import 'package:fakecommerce/data/repositories/categories.dart';
 import 'package:fakecommerce/utilities/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

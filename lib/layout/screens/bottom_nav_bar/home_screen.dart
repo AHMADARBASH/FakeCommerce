@@ -18,9 +18,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    if (!BlocProvider.of<ProductsCubit>(context).isInit) {
-      BlocProvider.of<ProductsCubit>(context).getTopProducts();
-    }
+    BlocProvider.of<ProductsCubit>(context).getTopProducts();
+
     super.initState();
   }
 

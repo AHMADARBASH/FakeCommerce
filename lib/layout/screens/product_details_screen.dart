@@ -121,40 +121,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.product.price!.toString(),
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                                Text(
-                                  ' \$',
-                                  style: TextStyle(fontFeatures: [
-                                    FontFeature.enable('sups')
-                                  ]),
-                                ),
-                              ],
+                            FadeInLeft(
+                              duration: Duration(milliseconds: 400),
+                              delay: Duration(milliseconds: 700),
+                              curve: Curves.easeOutQuad,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.product.price!.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  Text(
+                                    ' \$',
+                                    style: TextStyle(fontFeatures: [
+                                      FontFeature.enable('sups')
+                                    ]),
+                                  ),
+                                ],
+                              ),
                             ),
-                            ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: context.primaryColor,
-                              ),
-                              onPressed: () {},
-                              icon: Image.asset(
-                                'assets/images/logo.png',
-                                width: 25,
-                                height: 25,
-                              ),
-                              label: Text(
-                                'Add to cart',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                            FadeInRight(
+                              duration: Duration(milliseconds: 400),
+                              delay: Duration(milliseconds: 700),
+                              curve: Curves.easeOutQuad,
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: context.primaryColor,
+                                ),
+                                onPressed: () {},
+                                icon: Image.asset(
+                                  'assets/images/logo.png',
+                                  width: 25,
+                                  height: 25,
+                                ),
+                                label: Text(
+                                  'Add to cart',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                ),
                               ),
                             )
                           ],
