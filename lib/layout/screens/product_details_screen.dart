@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
+import 'package:fakecommerce/bloc/favorites/favorites_states.dart';
 import 'package:fakecommerce/data/models/product.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/typicons_icons.dart';
 import 'package:fluttericon/web_symbols_icons.dart';
 
@@ -26,26 +29,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         elevation: 0,
         actions: [
           FadeInRight(
-            duration: Duration(milliseconds: 400),
-            delay: Duration(milliseconds: 300),
-            curve: Curves.easeOutQuad,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
+              duration: Duration(milliseconds: 400),
+              delay: Duration(milliseconds: 800),
+              curve: Curves.easeOutQuad,
+              child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                builder: (context, state) => Container(
+                  padding: EdgeInsets.all(8),
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      state.ids.contains(widget.product.id)
+                          ? BlocProvider.of<FavoritesCubit>(context)
+                              .removeFavorite(id: widget.product.id!)
+                          : BlocProvider.of<FavoritesCubit>(context)
+                              .addFavorite(product: widget.product);
+                    },
+                    child: Icon(
+                      state.ids.contains(widget.product.id)
+                          ? WebSymbols.heart
+                          : WebSymbols.heart_empty,
+                      color: context.primaryColor,
+                    ),
+                  ),
                 ),
-              ),
-              padding: EdgeInsets.only(right: 10, left: 10),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Icon(
-                  WebSymbols.heart_empty,
-                  color: context.primaryColor,
-                ),
-              ),
-            ),
-          ),
+              )),
         ],
       ),
       body: Stack(alignment: Alignment.topRight, children: [
@@ -237,7 +244,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             color: Colors.white,
                           ),
                           Text(
-                            ' ${widget.product.rating!.rate.toString()}',
+                            ' ${widget.product.rating}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!

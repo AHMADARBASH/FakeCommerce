@@ -1,5 +1,3 @@
-import './rating.dart';
-
 class Product {
   int? id;
   String? title;
@@ -7,7 +5,7 @@ class Product {
   String? description;
   String? category;
   String? image;
-  Rating? rating;
+  double? rating;
 
   Product({
     this.id,
@@ -26,7 +24,16 @@ class Product {
     description = json['description'];
     category = json['category'];
     image = json['image'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    rating = double.parse(json['rating']['rate'].toString());
+  }
+  Product.fromDatabase(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    price = double.parse(json['price'].toString());
+    description = json['description'];
+    category = json['category'];
+    image = json['image'];
+    rating = double.parse(json['rating'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -37,9 +44,7 @@ class Product {
     data['description'] = description;
     data['category'] = category;
     data['image'] = image;
-    if (rating != null) {
-      data['rating'] = rating!.toJson();
-    }
+    data['rating'] = rating;
     return data;
   }
 }

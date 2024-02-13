@@ -1,7 +1,10 @@
+import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
+import 'package:fakecommerce/bloc/favorites/favorites_states.dart';
 import 'package:fakecommerce/data/models/product.dart';
 import 'package:fakecommerce/layout/screens/product_details_screen.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/web_symbols_icons.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -54,12 +57,22 @@ class ProductWidget extends StatelessWidget {
               )
             ],
           ),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
+          BlocBuilder<FavoritesCubit, FavoritesState>(
+            builder: (context, state) => Container(
               padding: EdgeInsets.all(8),
               alignment: Alignment.topRight,
-              child: Icon(WebSymbols.heart_empty),
+              child: GestureDetector(
+                onTap: () {
+                  state.ids.contains(product.id)
+                      ? BlocProvider.of<FavoritesCubit>(context)
+                          .removeFavorite(id: product.id!)
+                      : BlocProvider.of<FavoritesCubit>(context)
+                          .addFavorite(product: product);
+                },
+                child: Icon(state.ids.contains(product.id)
+                    ? WebSymbols.heart
+                    : WebSymbols.heart_empty),
+              ),
             ),
           )
         ]),

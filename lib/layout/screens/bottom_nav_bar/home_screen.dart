@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:fakecommerce/bloc/products/products_cubit.dart';
-import 'package:fakecommerce/bloc/products/products_state.dart';
+import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
 import 'package:fakecommerce/bloc/topProducts/topProducts_cubit.dart';
 import 'package:fakecommerce/bloc/topProducts/topProducts_state.dart';
 import 'package:fakecommerce/layout/widgets/product.dart';
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!topProductsCubit.isInit) {
       BlocProvider.of<TopProductsCubit>(context).getTopProducts();
     }
-
+    BlocProvider.of<FavoritesCubit>(context).getFavorites();
     super.initState();
   }
 

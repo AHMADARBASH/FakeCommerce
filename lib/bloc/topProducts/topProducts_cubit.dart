@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:fakecommerce/bloc/products/products_state.dart';
 import 'package:fakecommerce/bloc/topProducts/topProducts_state.dart';
 import 'package:fakecommerce/data/models/product.dart';
 import 'package:fakecommerce/data/repositories/products.dart';
