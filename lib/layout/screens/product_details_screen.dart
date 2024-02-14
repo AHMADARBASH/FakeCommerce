@@ -23,9 +23,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.tertiary,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.tertiary,
         elevation: 0,
         actions: [
           FadeInRight(
@@ -85,7 +85,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   width: context.width,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: context.tertiary,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
@@ -169,7 +169,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                          color: Colors.white,
+                                          color: context.tertiary,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
                                 ),
@@ -209,7 +209,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       child: Text(
                         ' ${widget.product.category!.toString()}',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Colors.white,
+                            color: context.tertiary,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
@@ -241,7 +241,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           Icon(
                             Typicons.star_filled,
-                            color: Colors.white,
+                            color: context.tertiary,
                           ),
                           Text(
                             ' ${widget.product.rating}',
@@ -249,7 +249,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
-                                    color: Colors.white,
+                                    color: context.tertiary,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15),
                           ),

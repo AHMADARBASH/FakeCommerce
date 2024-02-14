@@ -1,5 +1,6 @@
 import 'package:fakecommerce/layout/screens/product_details_screen.dart';
 import 'package:fakecommerce/layout/screens/shared/main_screen.dart';
+import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:fakecommerce/utilities/route_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class RouteGenerator {
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: context.tertiary,
               leading: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();

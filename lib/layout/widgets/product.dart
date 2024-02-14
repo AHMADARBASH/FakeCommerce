@@ -21,7 +21,7 @@ class ProductWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.tertiary,
           borderRadius: BorderRadius.circular(15),
           // boxShadow: [
           //   BoxShadow(

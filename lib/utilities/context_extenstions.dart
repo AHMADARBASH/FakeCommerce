@@ -6,5 +6,6 @@ extension BuildContextEntension on BuildContext {
   get isTablet => MediaQuery.of(this).size.width >= 600;
   get primaryColor => Theme.of(this).colorScheme.primary;
   get secondaryColor => Theme.of(this).colorScheme.secondary;
+  get tertiary => Theme.of(this).colorScheme.tertiary;
   get canvasColor => Theme.of(this).canvasColor;
 }

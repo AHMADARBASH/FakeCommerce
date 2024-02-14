@@ -1,5 +1,6 @@
 import 'package:fakecommerce/bloc/nav_bar_index/index_cubit.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_state.dart';
+import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/elusive_icons.dart';
@@ -20,7 +21,7 @@ class _NavBarState extends State<NavBar> {
         iconSize: 20,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: false,
-        backgroundColor: Colors.white,
+        backgroundColor: context.tertiary,
         unselectedItemColor:
             Theme.of(context).colorScheme.primary.withOpacity(0.4),
         currentIndex: state.index,

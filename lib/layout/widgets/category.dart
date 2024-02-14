@@ -20,7 +20,7 @@ class CategoryWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
-        color: index == globalIndex ? context.primaryColor : Colors.white,
+        color: index == globalIndex ? context.primaryColor : context.tertiary,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -34,7 +34,8 @@ class CategoryWidget extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: index == globalIndex ? Colors.white : context.primaryColor),
+            color:
+                index == globalIndex ? context.tertiary : context.primaryColor),
       ),
     );
   }
