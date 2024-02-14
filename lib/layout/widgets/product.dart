@@ -59,7 +59,7 @@ class ProductWidget extends StatelessWidget {
           ),
           BlocBuilder<FavoritesCubit, FavoritesState>(
             builder: (context, state) => Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {

@@ -33,19 +33,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ? Text(state.errorMessage)
               : state is FavoritesEmptyState
                   ? Center(child: Text('you have no Favorites Items'))
-                  : Expanded(
-                      child: MasonryGridView.builder(
-                        itemCount: state.favorites.length,
-                        gridDelegate:
-                            const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2),
-                        padding: EdgeInsets.all(5),
-                        itemBuilder: (context, index) => FadeInUp(
-                          curve: Curves.easeOutCubic,
-                          delay: Duration(milliseconds: 75 * index),
-                          child: ProductWidget(
-                            product: state.favorites[index],
-                          ),
+                  : MasonryGridView.builder(
+                      itemCount: state.favorites.length,
+                      gridDelegate:
+                          const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      padding: EdgeInsets.all(5),
+                      itemBuilder: (context, index) => FadeInUp(
+                        curve: Curves.easeOutCubic,
+                        delay: Duration(milliseconds: 75 * index),
+                        child: ProductWidget(
+                          product: state.favorites[index],
                         ),
                       ),
                     ),

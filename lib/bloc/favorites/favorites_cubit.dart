@@ -43,7 +43,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   Future<void> removeFavorite({required int id}) async {
-    emit(FavoritesLoadingState());
+    // emit(FavoritesLoadingState());
     await DatabaseHelper.deletefromDatabase(id: id, tableName: 'products');
     favorites.removeWhere(
       (element) => element.id == id,
