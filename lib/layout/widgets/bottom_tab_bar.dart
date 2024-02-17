@@ -50,9 +50,9 @@ class _NavBarState extends State<NavBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Elusive.cogs,
+              Icons.person,
             ),
-            label: 'Settings',
+            label: 'Profile',
           ),
         ],
       ),

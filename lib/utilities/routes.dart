@@ -1,5 +1,6 @@
+import 'package:fakecommerce/layout/screens/login_screen.dart';
 import 'package:fakecommerce/layout/screens/product_details_screen.dart';
-import 'package:fakecommerce/layout/screens/shared/main_screen.dart';
+import 'package:fakecommerce/layout/screens/main_screen.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:fakecommerce/utilities/route_animation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,10 @@ class RouteGenerator {
           page: ProductDetailsScreen(
             product: routeData['product'],
           ),
+        );
+      case LoginScreen.routeName:
+        return SizeTransitionAnimation(
+          page: LoginScreen(),
         );
       default:
         return _errorRoute();

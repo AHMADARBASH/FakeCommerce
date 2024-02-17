@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:fakecommerce/bloc/Auth/auth_cubit.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
 import 'package:fakecommerce/bloc/topProducts/topProducts_cubit.dart';
 import 'package:fakecommerce/bloc/topProducts/topProducts_state.dart';
@@ -7,7 +8,6 @@ import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:fluttericon/octicons_icons.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    BlocProvider.of<AuthCubit>(context).updateAuthState();
     final topProductsCubit = BlocProvider.of<TopProductsCubit>(context);
     if (!topProductsCubit.isInit) {
       BlocProvider.of<TopProductsCubit>(context).getTopProducts();
@@ -36,14 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            _key.currentState!.openDrawer();
-          },
-          icon: Icon(
-            MfgLabs.menu,
-          ),
-        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -51,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: Drawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 1),
         child: Column(

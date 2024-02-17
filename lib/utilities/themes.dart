@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 const Color _primaryColor = Color(0xff9675fa);
 const Color _secondaryColor = Colors.white;
-Color _WhiteCanvasColor = Colors.grey[100]!;
+Color _WhiteCanvasColor = Color(0xffebebeb);
 Color _DarkCanvasColor = Colors.black;
 
 Map<String, dynamic> themes = {

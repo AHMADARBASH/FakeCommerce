@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:fakecommerce/bloc/nav_bar_index/index_cubit.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_state.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/categories_screen.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/favorites_screen.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/home_screen.dart';
-import 'package:fakecommerce/layout/screens/bottom_nav_bar/settings_screen.dart';
+import 'package:fakecommerce/layout/screens/bottom_nav_bar/profile_screen.dart';
 import 'package:fakecommerce/layout/widgets/bottom_tab_bar.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +13,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MainScreen extends StatelessWidget {
   static const String routeName = '/';
   MainScreen({super.key});
-  final List<Widget> _pages = [
+  final List<Widget> _pages = const [
     HomeScreen(),
     CategoriesScreen(),
     FavoritesScreen(),
-    SettingsScreen()
+    ProfileScreen()
   ];
   DateTime timeBackPressed = DateTime.now();
   @override
@@ -35,8 +34,12 @@ class MainScreen extends StatelessWidget {
               return false;
             } else if (isExitWarning) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Press back again to exit'),
+                content: Text(
+                  'Press back again to exit',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 behavior: SnackBarBehavior.floating,
+                backgroundColor: context.tertiary,
               ));
               return false;
             } else {

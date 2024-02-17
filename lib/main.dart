@@ -1,3 +1,4 @@
+import 'package:fakecommerce/bloc/Auth/auth_cubit.dart';
 import 'package:fakecommerce/bloc/categories/categories_cubit.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_cubit.dart';
@@ -5,7 +6,7 @@ import 'package:fakecommerce/bloc/products/products_cubit.dart';
 import 'package:fakecommerce/bloc/topProducts/topProducts_cubit.dart';
 import 'package:fakecommerce/data/helpers/database_helper.dart';
 import 'package:fakecommerce/data/helpers/local_data.dart';
-import 'package:fakecommerce/layout/screens/shared/main_screen.dart';
+import 'package:fakecommerce/layout/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -41,6 +42,9 @@ class FakeCommerce extends StatelessWidget {
           ),
           BlocProvider<FavoritesCubit>(
             create: (_) => FavoritesCubit(),
+          ),
+          BlocProvider<AuthCubit>(
+            create: (_) => AuthCubit(),
           ),
         ],
         child: MaterialApp(
