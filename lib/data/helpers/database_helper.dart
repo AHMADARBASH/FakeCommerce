@@ -2,7 +2,6 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static late Database _instance;
-  static Database get instance => _instance;
 
   static Future<void> createDatabase() async {
     await openDatabase(

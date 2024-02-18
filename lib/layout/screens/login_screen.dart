@@ -16,9 +16,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  GlobalKey _formKey = GlobalKey<FormState>();
-
+  final GlobalKey<FormState> _formKey = GlobalKey();
   bool _isPassword = true;
+  TextEditingController _UsernameController = TextEditingController();
+  TextEditingController _PasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +52,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         lable: 'username',
                         isPassword: false,
                         action: TextInputAction.next,
+                        controller: _UsernameController,
+                        validator: (value) {
+                          if (value!.isEmpty || value == '') {
+                            return 'Please enter username';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -65,6 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           builder: (context, newSetState) => CustomTextField(
                             lable: 'password',
                             isPassword: _isPassword,
+                            controller: _PasswordController,
+                            validator: (value) {
+                              if (value!.isEmpty || value == '') {
+                                return 'Please enter password';
+                              } else {
+                                return null;
+                              }
+                            },
                             suffix: IconButton(
                               highlightColor: Colors.transparent,
                               onPressed: () {
@@ -91,7 +109,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     curve: Curves.easeOutCubic,
                     child: BlocBuilder<AuthCubit, AuthState>(
                       builder: (context, state) => InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+                          } else {
+                            BlocProvider.of<AuthCubit>(context).login(
+                                username: _UsernameController.text,
+                                password: _PasswordController.text);
+                          }
+                        },
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: 300),
                           width: state is AuthLoadingState

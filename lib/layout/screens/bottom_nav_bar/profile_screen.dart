@@ -1,7 +1,10 @@
+import 'package:fakecommerce/bloc/Auth/auth_cubit.dart';
+import 'package:fakecommerce/bloc/Auth/auth_state.dart';
 import 'package:fakecommerce/layout/screens/login_screen.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,108 +20,212 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         elevation: 0,
       ),
-      body: SizedBox(
-        width: context.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            FadeInDown(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeOutCubic,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                ),
-                height: context.height * 0.25,
-                child: Icon(
-                  Icons.person,
-                  size: context.height * 0.25,
-                  color: context.primaryColor,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: context.height * 0.02,
-            ),
-            FadeInRight(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeOutCubic,
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(LoginScreen.routeName);
-                },
-                child: Container(
-                  width: context.width * 0.8,
-                  height: context.height * 0.06,
-                  decoration: BoxDecoration(
-                    color: context.primaryColor,
-                    borderRadius: BorderRadius.circular(10),
+      body: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) => state.isAuth
+              ? SizedBox(
+                  width: context.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 100,
+                      ),
+                      FadeInDown(
+                        duration: Duration(milliseconds: 600),
+                        curve: Curves.easeOutCubic,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.2),
+                          ),
+                          height: context.height * 0.25,
+                          child: Icon(
+                            Icons.person,
+                            size: context.height * 0.25,
+                            color: context.primaryColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text('username'),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (_) => AlertDialog(
+                                    content: Text(
+                                      'are you sure to logout?',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
+                                        child: const Text('No'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: context.primaryColor,
+                                          foregroundColor:
+                                              context.secondaryColor,
+                                        ),
+                                        child: const Text('Yes'),
+                                        onPressed: () async {
+                                          await BlocProvider.of<AuthCubit>(
+                                                  context)
+                                              .logout();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ));
+                        },
+                        child: Container(
+                          width: context.width * 0.8,
+                          height: context.height * 0.06,
+                          decoration: BoxDecoration(
+                            color: context.primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Logout',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: context.secondaryColor),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                      ),
+                    ],
                   ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'login',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: context.secondaryColor),
+                )
+              : SizedBox(
+                  width: context.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FadeInDown(
+                        duration: Duration(milliseconds: 600),
+                        curve: Curves.easeOutCubic,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.2),
+                          ),
+                          height: context.height * 0.25,
+                          child: Icon(
+                            Icons.person,
+                            size: context.height * 0.25,
+                            color: context.primaryColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: context.height * 0.02,
+                      ),
+                      FadeInRight(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeOutCubic,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(LoginScreen.routeName);
+                          },
+                          child: Container(
+                            width: context.width * 0.8,
+                            height: context.height * 0.06,
+                            decoration: BoxDecoration(
+                              color: context.primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'login',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: context.secondaryColor),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FadeIn(
+                        duration: Duration(milliseconds: 600),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: context.width * 0.25,
+                              height: 0.5,
+                              color: context.primaryColor,
+                            ),
+                            Text('  or  '),
+                            Container(
+                              width: context.width * 0.25,
+                              height: 0.5,
+                              color: context.primaryColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FadeInLeft(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeOutCubic,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Container(
+                            width: context.width * 0.8,
+                            height: context.height * 0.06,
+                            decoration: BoxDecoration(
+                              color: context.primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Signup',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: context.secondaryColor),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FadeIn(
-              duration: Duration(milliseconds: 600),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: context.width * 0.25,
-                    height: 0.5,
-                    color: context.primaryColor,
-                  ),
-                  Text('  or  '),
-                  Container(
-                    width: context.width * 0.25,
-                    height: 0.5,
-                    color: context.primaryColor,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FadeInLeft(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeOutCubic,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  width: context.width * 0.8,
-                  height: context.height * 0.06,
-                  decoration: BoxDecoration(
-                    color: context.primaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Signup',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: context.secondaryColor),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                )),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesInitState());
 
-  final _repo = CategoriesRepositor();
+  final _repo = CategoriesRepository();
   bool isInit = false;
   Future<void> getAllCategories() async {
     emit(CategoriesLoadingState());

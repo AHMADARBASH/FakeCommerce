@@ -7,5 +7,6 @@ extension BuildContextEntension on BuildContext {
   get primaryColor => Theme.of(this).colorScheme.primary;
   get secondaryColor => Theme.of(this).colorScheme.secondary;
   get tertiary => Theme.of(this).colorScheme.tertiary;
+  get errorColor => Theme.of(this).colorScheme.error;
   get canvasColor => Theme.of(this).canvasColor;
 }

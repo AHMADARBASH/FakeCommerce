@@ -32,6 +32,7 @@ Map<String, dynamic> themes = {
       backgroundColor: _WhiteCanvasColor,
       elevation: 0,
     ),
+    dialogBackgroundColor: _secondaryColor,
     iconTheme: IconThemeData(
       color: _primaryColor,
     ),

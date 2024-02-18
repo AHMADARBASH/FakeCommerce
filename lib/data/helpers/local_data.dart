@@ -15,4 +15,8 @@ class LocalData {
   static bool containsKey(key) {
     return _prefrences.containsKey(key);
   }
+
+  static Future<void> deleteData({required String key}) async {
+    await _prefrences.remove(key);
+  }
 }

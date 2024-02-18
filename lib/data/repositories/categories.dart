@@ -1,9 +1,9 @@
 import 'package:fakecommerce/data/repositories/api.dart';
 
-class CategoriesRepositor extends APIRepository {
+class CategoriesRepository extends APIRepository {
   Future<List<String>> getAllCategories() async {
     List<dynamic> data =
-        await super.GET(URL: 'https://fakestoreapi.com/products/categories');
+        await super.get(URL: 'https://fakestoreapi.com/products/categories');
     return data.map((e) => e.toString()).toList();
   }
 }
