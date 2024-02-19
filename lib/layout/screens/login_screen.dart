@@ -16,6 +16,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<AuthCubit>(context).updateAuthState();
+    super.initState();
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool _isPassword = true;
   TextEditingController _UsernameController = TextEditingController();
@@ -109,20 +115,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     curve: Curves.easeOutCubic,
                     child: BlocBuilder<AuthCubit, AuthState>(
                       builder: (context, state) => InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (!_formKey.currentState!.validate()) {
                             return;
                           } else {
-                            BlocProvider.of<AuthCubit>(context).login(
+                            try {
+                              await BlocProvider.of<AuthCubit>(context).login(
                                 username: _UsernameController.text,
-                                password: _PasswordController.text);
+                                password: _PasswordController.text,
+                              );
+                              Navigator.of(context).pop();
+                            } catch (_) {}
                           }
                         },
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: 300),
-                          width: state is AuthLoadingState
-                              ? 80
-                              : context.width * 0.9,
+                          width: context.width * 0.9,
                           height: context.height * 0.07,
                           decoration: BoxDecoration(
                             color: context.primaryColor,
@@ -142,6 +150,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) => Text(
+                      state is AuthErrorState
+                          ? 'Authetication Error \n Error Message: ${state.errorMessage}'
+                          : '',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],

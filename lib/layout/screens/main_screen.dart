@@ -1,10 +1,13 @@
 // ignore_for_file: must_be_immutable
+import 'package:fakecommerce/bloc/cart/cart_cubit.dart';
+import 'package:fakecommerce/bloc/cart/cart_state.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_cubit.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_state.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/categories_screen.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/favorites_screen.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/home_screen.dart';
 import 'package:fakecommerce/layout/screens/bottom_nav_bar/profile_screen.dart';
+import 'package:fakecommerce/layout/screens/cart_screen.dart';
 import 'package:fakecommerce/layout/widgets/bottom_tab_bar.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
@@ -50,12 +53,24 @@ class MainScreen extends StatelessWidget {
           child: Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: context.primaryColor,
-              child: Image.asset(
-                'assets/images/logo.png',
-                width: 35,
+            floatingActionButton: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) => Badge(
+                backgroundColor: context.secondaryColor,
+                isLabelVisible: true,
+                label: Text(
+                  state.products.length.toString(),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(CartScreen.routeName);
+                  },
+                  backgroundColor: context.primaryColor,
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    width: 35,
+                  ),
+                ),
               ),
             ),
             body: _pages[state.index],

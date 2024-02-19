@@ -36,6 +36,15 @@ Map<String, dynamic> themes = {
     iconTheme: IconThemeData(
       color: _primaryColor,
     ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: _secondaryColor,
+      actionTextColor: _primaryColor,
+      contentTextStyle: GoogleFonts.exo2().copyWith(
+        color: _primaryColor,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     primaryIconTheme: IconThemeData(
       color: _primaryColor,
     ),

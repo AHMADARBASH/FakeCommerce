@@ -1,4 +1,5 @@
 import 'package:fakecommerce/bloc/Auth/auth_cubit.dart';
+import 'package:fakecommerce/bloc/cart/cart_cubit.dart';
 import 'package:fakecommerce/bloc/categories/categories_cubit.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
 import 'package:fakecommerce/bloc/nav_bar_index/index_cubit.dart';
@@ -45,6 +46,9 @@ class FakeCommerce extends StatelessWidget {
           ),
           BlocProvider<AuthCubit>(
             create: (_) => AuthCubit(),
+          ),
+          BlocProvider<CartCubit>(
+            create: (_) => CartCubit(),
           ),
         ],
         child: MaterialApp(

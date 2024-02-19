@@ -1,8 +1,10 @@
 import 'dart:ui';
-
+import 'package:fakecommerce/bloc/cart/cart_cubit.dart';
+import 'package:fakecommerce/bloc/cart/cart_state.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_states.dart';
 import 'package:fakecommerce/data/models/product.dart';
+import 'package:fakecommerce/layout/screens/cart_screen.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
@@ -22,6 +24,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final cartCubit = BlocProvider.of<CartCubit>(context);
     return Scaffold(
       backgroundColor: context.tertiary,
       appBar: AppBar(
@@ -118,6 +121,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       const Expanded(
                         child: SizedBox(),
                       ),
+
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
@@ -149,32 +153,75 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ],
                               ),
                             ),
-                            FadeInRight(
-                              duration: Duration(milliseconds: 400),
-                              delay: Duration(milliseconds: 700),
-                              curve: Curves.easeOutQuad,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: context.primaryColor,
-                                ),
-                                onPressed: () {},
-                                icon: Image.asset(
-                                  'assets/images/logo.png',
-                                  width: 25,
-                                  height: 25,
-                                ),
-                                label: Text(
-                                  'Add to cart',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color: context.tertiary,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
+                            BlocBuilder<CartCubit, CartState>(
+                              builder: (context, state) => FadeInRight(
+                                duration: Duration(milliseconds: 400),
+                                delay: Duration(milliseconds: 700),
+                                curve: Curves.easeOutQuad,
+                                child: Row(
+                                  children: [
+                                    ElevatedButton.icon(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: cartCubit.products
+                                                .contains(widget.product)
+                                            ? Colors.grey
+                                            : context.primaryColor,
+                                      ),
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                        if (cartCubit.products
+                                            .contains(widget.product)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Item already in cart',
+                                              ),
+                                              backgroundColor:
+                                                  context.secondaryColor,
+                                              action: SnackBarAction(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pushNamed(
+                                                          CartScreen.routeName);
+                                                },
+                                                label: 'view cart',
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Item added',
+                                              ),
+                                            ),
+                                          );
+                                          cartCubit.addProduct(widget.product);
+                                        }
+                                      },
+                                      icon: Image.asset(
+                                        'assets/images/logo.png',
+                                        width: 25,
+                                        height: 25,
+                                      ),
+                                      label: Text(
+                                        'Add to cart',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                                color: context.tertiary,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       )

@@ -1,3 +1,4 @@
+import 'package:fakecommerce/layout/screens/cart_screen.dart';
 import 'package:fakecommerce/layout/screens/login_screen.dart';
 import 'package:fakecommerce/layout/screens/product_details_screen.dart';
 import 'package:fakecommerce/layout/screens/main_screen.dart';
@@ -24,6 +25,11 @@ class RouteGenerator {
         return SizeTransitionAnimation(
           page: LoginScreen(),
         );
+      case CartScreen.routeName:
+        return SizeTransitionAnimation(
+          page: CartScreen(),
+        );
+
       default:
         return _errorRoute();
     }
