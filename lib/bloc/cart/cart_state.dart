@@ -1,7 +1,8 @@
+import 'package:fakecommerce/data/models/cart_item.dart';
 import 'package:fakecommerce/data/models/product.dart';
 
 abstract class CartState {
-  List<Product> products = [];
+  List<CartItem> products = [];
 
   CartState({required this.products});
 }

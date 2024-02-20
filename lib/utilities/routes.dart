@@ -26,8 +26,8 @@ class RouteGenerator {
           page: LoginScreen(),
         );
       case CartScreen.routeName:
-        return SizeTransitionAnimation(
-          page: CartScreen(),
+        return MaterialPageRoute(
+          builder: (_) => CartScreen(),
         );
 
       default:

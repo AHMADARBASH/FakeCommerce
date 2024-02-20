@@ -3,6 +3,7 @@ import 'package:fakecommerce/bloc/cart/cart_cubit.dart';
 import 'package:fakecommerce/bloc/cart/cart_state.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_states.dart';
+import 'package:fakecommerce/data/models/cart_item.dart';
 import 'package:fakecommerce/data/models/product.dart';
 import 'package:fakecommerce/layout/screens/cart_screen.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
@@ -162,16 +163,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   children: [
                                     ElevatedButton.icon(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: cartCubit.products
-                                                .contains(widget.product)
+                                        backgroundColor: cartCubit.isExist(
+                                                product: widget.product)
                                             ? Colors.grey
                                             : context.primaryColor,
                                       ),
                                       onPressed: () {
                                         ScaffoldMessenger.of(context)
                                             .hideCurrentSnackBar();
-                                        if (cartCubit.products
-                                            .contains(widget.product)) {
+                                        if (cartCubit.isExist(
+                                            product: widget.product)) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
@@ -199,7 +200,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               ),
                                             ),
                                           );
-                                          cartCubit.addProduct(widget.product);
+                                          cartCubit.addProduct(CartItem(
+                                              product: widget.product, qty: 1));
                                         }
                                       },
                                       icon: Image.asset(

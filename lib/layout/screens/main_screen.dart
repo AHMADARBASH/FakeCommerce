@@ -56,6 +56,7 @@ class MainScreen extends StatelessWidget {
             floatingActionButton: BlocBuilder<CartCubit, CartState>(
               builder: (context, state) => Badge(
                 backgroundColor: context.secondaryColor,
+                offset: Offset(-2, 2),
                 isLabelVisible: true,
                 label: Text(
                   state.products.length.toString(),
