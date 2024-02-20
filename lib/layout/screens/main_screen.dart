@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreen extends StatelessWidget {
+  static late BuildContext mainContext;
   static const String routeName = '/';
+
   MainScreen({super.key});
   final List<Widget> _pages = const [
     HomeScreen(),
@@ -25,6 +27,7 @@ class MainScreen extends StatelessWidget {
   DateTime timeBackPressed = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    mainContext = context;
     return BlocBuilder<BottomNavBarCubit, BottomNavbarState>(
       builder: (context, state) => SafeArea(
         child: WillPopScope(

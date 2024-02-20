@@ -1,5 +1,6 @@
 import 'package:fakecommerce/bloc/Auth/auth_cubit.dart';
 import 'package:fakecommerce/bloc/Auth/auth_state.dart';
+import 'package:fakecommerce/bloc/cart/cart_cubit.dart';
 import 'package:fakecommerce/data/helpers/local_data.dart';
 import 'package:fakecommerce/layout/screens/login_screen.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
@@ -97,6 +98,7 @@ Widget ProfileForm(BuildContext context, AuthState state) => SizedBox(
                               ),
                               child: const Text('Yes'),
                               onPressed: () async {
+                                BlocProvider.of<CartCubit>(context).emptyCart();
                                 await BlocProvider.of<AuthCubit>(context)
                                     .logout();
                                 Navigator.of(context).pop();

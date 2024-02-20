@@ -5,13 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartCubit extends Cubit<CartState> {
   List<CartItem> products = [];
+
   CartCubit() : super(CartInitState());
+
   int get items => products.length;
+
   double get totalPrice {
     double price = 0;
-    products.forEach((element) {
+    for (var element in products) {
       price += element.product.price! * element.qty;
-    });
+    }
     return double.parse(price.toStringAsFixed(2));
   }
 
@@ -56,6 +59,11 @@ class CartCubit extends Cubit<CartState> {
         }
       }
     }
+    emit(CartUpdateState(products: products));
+  }
+
+  void emptyCart() {
+    products = [];
     emit(CartUpdateState(products: products));
   }
 }

@@ -112,6 +112,7 @@ class _CartScreenState extends State<CartScreen> {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(fontSize: 16),
+                                    maxLines: 2,
                                   ),
                                   Row(
                                     children: [
@@ -185,7 +186,7 @@ class _CartScreenState extends State<CartScreen> {
                                 : context.primaryColor),
                         onPressed: () {},
                         child: Text(
-                          'Checkout',
+                          'Confirm order',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!

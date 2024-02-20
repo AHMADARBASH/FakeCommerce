@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:fakecommerce/bloc/Auth/auth_cubit.dart';
 import 'package:fakecommerce/bloc/cart/cart_cubit.dart';
 import 'package:fakecommerce/bloc/cart/cart_state.dart';
 import 'package:fakecommerce/bloc/favorites/favorites_cubit.dart';
@@ -6,6 +7,8 @@ import 'package:fakecommerce/bloc/favorites/favorites_states.dart';
 import 'package:fakecommerce/data/models/cart_item.dart';
 import 'package:fakecommerce/data/models/product.dart';
 import 'package:fakecommerce/layout/screens/cart_screen.dart';
+import 'package:fakecommerce/layout/screens/main_screen.dart';
+import 'package:fakecommerce/layout/widgets/snackbar.dart';
 import 'package:fakecommerce/utilities/context_extenstions.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
@@ -24,8 +27,15 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
+  void dispose() {
+    ScaffoldMessenger.of(MainScreen.mainContext).hideCurrentSnackBar();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context);
+    final authCubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
       backgroundColor: context.tertiary,
       appBar: AppBar(
@@ -169,39 +179,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             : context.primaryColor,
                                       ),
                                       onPressed: () {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
+                                        if (!authCubit.state.isAuth) {
+                                          showSnackbar(
+                                              context: context,
+                                              content: 'Please Login first');
+                                          return;
+                                        }
                                         if (cartCubit.isExist(
                                             product: widget.product)) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Item already in cart',
-                                              ),
-                                              backgroundColor:
-                                                  context.secondaryColor,
-                                              action: SnackBarAction(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pushNamed(
-                                                          CartScreen.routeName);
-                                                },
-                                                label: 'view cart',
-                                              ),
+                                          showSnackbar(
+                                            context: context,
+                                            content: 'Item already in cart',
+                                            action: SnackBarAction(
+                                              backgroundColor: context
+                                                  .primaryColor
+                                                  .withOpacity(0.3),
+                                              onPressed: () {
+                                                Navigator.of(context).pushNamed(
+                                                    CartScreen.routeName);
+                                              },
+                                              label: 'view cart',
                                             ),
                                           );
                                         } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Item added',
-                                              ),
-                                            ),
+                                          showSnackbar(
+                                              context: context,
+                                              content: 'Item added');
+                                          cartCubit.addProduct(
+                                            CartItem(
+                                                product: widget.product,
+                                                qty: 1),
                                           );
-                                          cartCubit.addProduct(CartItem(
-                                              product: widget.product, qty: 1));
                                         }
                                       },
                                       icon: Image.asset(
